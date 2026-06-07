@@ -20,7 +20,7 @@ export async function POST(request: Request) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "ioperio Website <onboarding@resend.dev>",
+        from: "ioperio <noreply@ioperio.at>",
         to: ["office@ioperio.at"],
         subject: `Neue Demo-Anfrage von ${name}`,
         html: `
