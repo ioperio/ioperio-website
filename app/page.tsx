@@ -41,7 +41,7 @@ export default function Home() {
       <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <div>
           <div className="text-3xl font-black tracking-tight">
-            <span className="text-teal-500">i</span>Operio
+            <span className="text-teal-500">i</span>operio
           </div>
           <div className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
             Mehr Aufträge. Weniger Büroarbeit.
@@ -102,7 +102,7 @@ export default function Home() {
         <div className="rounded-3xl bg-slate-950 p-6 shadow-2xl">
           <div className="mb-5 flex items-center justify-between border-b border-white/10 pb-4">
             <div className="text-xl font-black text-white">
-              <span className="text-teal-400">i</span>Operio Inbox
+              <span className="text-teal-400">i</span>operio Inbox
             </div>
             <span className="rounded-full bg-red-500/15 px-3 py-1 text-xs font-bold text-red-300">
               Priorität hoch
