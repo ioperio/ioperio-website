@@ -22,15 +22,15 @@ const problems = [
 
 const products = [
   {
-    name: "iOperio Inbox",
+    name: "ioperio Inbox",
     text: "Erfasst Kundenanfragen automatisch und strukturiert alle wichtigen Informationen.",
   },
   {
-    name: "iOperio Offer",
+    name: "ioperio Offer",
     text: "Bereitet Angebotsentwürfe vor, damit Sie schneller reagieren können.",
   },
   {
-    name: "iOperio Voice",
+    name: "ioperio Voice",
     text: "Nimmt später Telefonanfragen entgegen und erstellt daraus klare Rückrufnotizen.",
   },
 ];
