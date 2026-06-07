@@ -352,15 +352,6 @@ export default function Home() {  const [formData, setFormData] = useState({
     </p>
   )}
 </form>>
-            <input className="w-full rounded-xl border border-slate-200 p-4" placeholder="Name" />
-            <input className="w-full rounded-xl border border-slate-200 p-4" placeholder="Firma" />
-            <input className="w-full rounded-xl border border-slate-200 p-4" placeholder="E-Mail" />
-            <input className="w-full rounded-xl border border-slate-200 p-4" placeholder="Telefon" />
-            <textarea className="h-28 w-full rounded-xl border border-slate-200 p-4" placeholder="Wobei dürfen wir helfen?" />
-            <button className="w-full rounded-xl bg-slate-950 px-6 py-4 font-bold text-white">
-              Demo anfragen
-            </button>
-          </form>
         </div>
       </section>
 
@@ -375,7 +366,7 @@ export default function Home() {  const [formData, setFormData] = useState({
           <div className="flex gap-6">
             <a href="#">Impressum</a>
             <a href="#">Datenschutz</a>
-            <a href="mailto:kontakt@ioperio.at">office@ioperio.at</a>
+            <a href="mailto:office@ioperio.at">office@ioperio.at</a>
           </div>
         </div>
       </footer>
