@@ -285,7 +285,7 @@ export default function Home() {  const [formData, setFormData] = useState({
             </p>
           </div>
 
-          <form <form
+          <form 
   onSubmit={handleSubmit}
   className="space-y-4 rounded-2xl bg-white p-6 shadow-sm"
 >
