@@ -250,7 +250,7 @@ export default function Home() {
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 text-sm text-slate-500 md:flex-row">
           <div>
             <strong className="text-slate-950">
-              <span className="text-teal-500">i</span>Operio
+              <span className="text-teal-500">i</span>operio
             </strong>{" "}
             – Mehr Aufträge. Weniger Büroarbeit.
           </div>
