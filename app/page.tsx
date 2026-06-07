@@ -131,7 +131,7 @@ export default function Home() {
                 nicht.
               </div>
               <div className="rounded-xl bg-teal-50 p-4 text-teal-900">
-                <strong>iOperio Ergebnis:</strong> Alle Daten erfasst,
+                <strong>ioperio Ergebnis:</strong> Alle Daten erfasst,
                 Dringlichkeit erkannt, Angebotsentwurf vorbereitet.
               </div>
             </div>
