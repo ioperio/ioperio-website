@@ -1,4 +1,6 @@
-const benefits = [
+const benefits = ["use client";
+
+import { useState } from "react";
   "Keine verlorenen Anfragen",
   "Weniger Telefonstress",
   "Angebote schneller vorbereiten",
@@ -35,7 +37,55 @@ const products = [
   },
 ];
 
-export default function Home() {
+export default function Home() {  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("loading");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Fehler beim Senden");
+      }
+
+      setStatus("success");
+      setFormData({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
+    }
+  };
   return (
     <main className="min-h-screen bg-white text-slate-950">
       <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
@@ -233,7 +283,73 @@ export default function Home() {
             </p>
           </div>
 
-          <form className="space-y-4 rounded-2xl bg-white p-6 shadow-sm">
+          <form <form
+  onSubmit={handleSubmit}
+  className="space-y-4 rounded-2xl bg-white p-6 shadow-sm"
+>
+  <input
+    name="name"
+    value={formData.name}
+    onChange={handleChange}
+    className="w-full rounded-xl border border-slate-200 p-4"
+    placeholder="Name"
+    required
+  />
+
+  <input
+    name="company"
+    value={formData.company}
+    onChange={handleChange}
+    className="w-full rounded-xl border border-slate-200 p-4"
+    placeholder="Firma"
+  />
+
+  <input
+    name="email"
+    type="email"
+    value={formData.email}
+    onChange={handleChange}
+    className="w-full rounded-xl border border-slate-200 p-4"
+    placeholder="E-Mail"
+    required
+  />
+
+  <input
+    name="phone"
+    value={formData.phone}
+    onChange={handleChange}
+    className="w-full rounded-xl border border-slate-200 p-4"
+    placeholder="Telefon"
+  />
+
+  <textarea
+    name="message"
+    value={formData.message}
+    onChange={handleChange}
+    className="h-28 w-full rounded-xl border border-slate-200 p-4"
+    placeholder="Wobei dürfen wir helfen?"
+  />
+
+  <button
+    type="submit"
+    disabled={status === "loading"}
+    className="w-full rounded-xl bg-slate-950 px-6 py-4 font-bold text-white disabled:opacity-60"
+  >
+    {status === "loading" ? "Wird gesendet..." : "Demo anfragen"}
+  </button>
+
+  {status === "success" && (
+    <p className="rounded-xl bg-teal-50 p-4 text-sm font-semibold text-teal-800">
+      Danke! Ihre Anfrage wurde erfolgreich gesendet.
+    </p>
+  )}
+
+  {status === "error" && (
+    <p className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">
+      Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an office@ioperio.at.
+    </p>
+  )}
+</form>>
             <input className="w-full rounded-xl border border-slate-200 p-4" placeholder="Name" />
             <input className="w-full rounded-xl border border-slate-200 p-4" placeholder="Firma" />
             <input className="w-full rounded-xl border border-slate-200 p-4" placeholder="E-Mail" />
