@@ -67,7 +67,7 @@ export default function Home() {
           </h1>
 
           <p className="mt-6 max-w-xl text-xl leading-8 text-slate-700">
-            iOperio automatisiert Kundenanfragen, strukturiert alle wichtigen
+            ioperio automatisiert Kundenanfragen, strukturiert alle wichtigen
             Informationen und bereitet Angebote vor – damit keine Anfrage
             verloren geht.
           </p>
@@ -168,7 +168,7 @@ export default function Home() {
           <div className="grid gap-12 md:grid-cols-2">
             <div>
               <h2 className="text-4xl font-black tracking-tight">
-                So macht iOperio aus Anfragen echte Aufträge.
+                So macht ioperio aus Anfragen echte Aufträge.
               </h2>
               <p className="mt-5 text-lg leading-8 text-slate-700">
                 Statt Zettelwirtschaft, verpassten Anrufen und verstreuten
@@ -180,7 +180,7 @@ export default function Home() {
             <div className="space-y-4">
               {[
                 "Kunde stellt Anfrage per Formular, E-Mail oder später Telefon.",
-                "iOperio sammelt Name, Adresse, Problem, Dringlichkeit und Kontaktdaten.",
+                "ioperio sammelt Name, Adresse, Problem, Dringlichkeit und Kontaktdaten.",
                 "Die Anfrage wird automatisch analysiert und priorisiert.",
                 "Sie erhalten eine klare Zusammenfassung.",
                 "Ein Angebotsentwurf wird vorbereitet.",
@@ -228,7 +228,7 @@ export default function Home() {
               Bereit für mehr Aufträge?
             </h2>
             <p className="mt-5 text-lg leading-8 text-slate-700">
-              In einer kostenlosen Demo zeigen wir Ihnen, wie iOperio Anfragen
+              In einer kostenlosen Demo zeigen wir Ihnen, wie ioperio Anfragen
               automatisch erfasst und Angebotsvorbereitungen vereinfacht.
             </p>
           </div>
@@ -257,7 +257,7 @@ export default function Home() {
           <div className="flex gap-6">
             <a href="#">Impressum</a>
             <a href="#">Datenschutz</a>
-            <a href="mailto:kontakt@ioperio.at">kontakt@ioperio.at</a>
+            <a href="mailto:kontakt@ioperio.at">office@ioperio.at</a>
           </div>
         </div>
       </footer>
