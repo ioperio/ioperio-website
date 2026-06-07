@@ -1,6 +1,8 @@
-const benefits = ["use client";
+"use client";
 
 import { useState } from "react";
+
+const benefits = [
   "Keine verlorenen Anfragen",
   "Weniger Telefonstress",
   "Angebote schneller vorbereiten",
