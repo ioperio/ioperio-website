@@ -351,7 +351,7 @@ export default function Home() {  const [formData, setFormData] = useState({
       Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an office@ioperio.at.
     </p>
   )}
-</form>>
+</form>
         </div>
       </section>
 
