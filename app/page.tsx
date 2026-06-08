@@ -5,7 +5,7 @@ import { useState } from "react";
 const packages = [
   {
     name: "Basic",
-    label: "E-Mail AngebotsPilot",
+    label: "E-Mail Der einfachste Weg vom Kundenwunsch zum Angebot",
     desc: "Für Betriebe, die Anfragen über E-Mail oder Kontaktformular erhalten.",
     channels: "E-Mail · Kontaktformular",
     items: [
@@ -99,24 +99,24 @@ export default function Home() {
       <section className="relative z-10 mx-auto grid max-w-7xl gap-12 px-6 pb-24 pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:pt-24">
         <div>
           <div className="mb-6 inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100">
-            Keine neue Website. Kein neues CRM. ioperio hängt sich an bestehende Systeme.
+            Der einfachste Weg vom Kundenwunsch zum Angebot.
           </div>
           <h1 className="max-w-4xl text-5xl font-black leading-[0.95] tracking-tight md:text-7xl">
-            Aus Kundenanfragen werden automatisch Richtangebote.
+            Schluss mit liegen gebliebenen Anfragen.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
-            ioperio verarbeitet bestehende E-Mails und Kontaktformular-Anfragen, erstellt sofort eine erste Preiseinschätzung und gibt dem Betrieb einen Freigabe-Link für die finale Angebotsmail.
+            ioperio ist der einfachste Weg vom Kundenwunsch zum Angebot: bestehende E-Mails und Kontaktformular-Anfragen werden automatisch erkannt, mit einer ersten Preiseinschätzung beantwortet und über einen Freigabe-Link zur finalen Angebotsmail vorbereitet.
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <a href="#kontakt" className="rounded-full bg-white px-7 py-4 text-center font-semibold text-slate-950 shadow-[0_0_50px_rgba(255,255,255,0.20)] transition hover:scale-[1.02]">
-              Basic Demo starten
+              Demo anfragen
             </a>
             <a href="#ablauf" className="rounded-full border border-white/15 px-7 py-4 text-center font-semibold text-white transition hover:bg-white/10">
               Ablauf ansehen
             </a>
           </div>
           <p className="mt-6 text-sm text-slate-500">
-            Ideal für Werkstätten, Handwerk, Händler, Aufbereiter, Druckereien und Werbetechnik.
+            Für Betriebe, die Anfragen nicht mehr liegen lassen, sondern schneller und sauberer anbieten wollen.
           </p>
         </div>
 
@@ -170,7 +170,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">Der Basic Ablauf</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">E-Mail rein. Richtangebot raus. Freigabe mit einem Klick.</h2>
+            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">Vom Kundenwunsch zum Angebot. Ohne liegen gebliebene Anfragen.</h2>
           </div>
           <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {steps.map((step, index) => (
@@ -211,7 +211,7 @@ export default function Home() {
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">Pakete</p>
             <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">Basic, Pro und Max.</h2>
-            <p className="mt-5 text-lg leading-8 text-slate-300">Die Pakete unterscheiden sich nach Eingangskanälen und Automatisierungsgrad. Der Kern bleibt immer gleich: Anfrage zu Richtangebot.</p>
+            <p className="mt-5 text-lg leading-8 text-slate-300">Basic startet mit E-Mail und Kontaktformular. Pro erweitert auf WhatsApp und Social Media. Max ergänzt Telefonie. Der Kern bleibt immer gleich: Kundenwunsch zu Richtangebot.</p>
           </div>
 
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -268,7 +268,7 @@ export default function Home() {
 
       <footer className="relative z-10 border-t border-white/10 px-6 py-10 text-sm text-slate-500">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} ioperio. Automatische Richtangebote aus Kundenanfragen.</p>
+          <p>© {new Date().getFullYear()} ioperio. Schluss mit liegen gebliebenen Anfragen.</p>
           <div className="flex gap-5">
             <a href="#" className="hover:text-white">Impressum</a>
             <a href="#" className="hover:text-white">Datenschutz</a>
@@ -278,7 +278,7 @@ export default function Home() {
 
       <div className="fixed bottom-5 right-5 z-20 hidden rounded-3xl border border-white/10 bg-[#080b12]/95 p-4 shadow-2xl backdrop-blur md:block">
         <p className="text-sm font-semibold">ioperio Demo</p>
-        <p className="mt-1 max-w-[240px] text-xs leading-5 text-slate-400">Anfrage rein, Richtangebot raus, Freigabe per Text oder Sprache.</p>
+        <p className="mt-1 max-w-[240px] text-xs leading-5 text-slate-400">Vom Kundenwunsch zum Angebot – per Freigabe-Link.</p>
       </div>
     </main>
   );
