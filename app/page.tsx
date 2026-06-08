@@ -79,13 +79,15 @@ export default function Home() {
       </div>
 
       <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-cyan-300/30 bg-white/10 shadow-[0_0_40px_rgba(34,211,238,0.25)]">
-            <span className="text-lg font-black tracking-tight">io</span>
+        <div className="group flex items-center gap-4">
+          <div className="relative flex h-16 w-16 items-center justify-center rounded-[1.4rem] border border-cyan-300/40 bg-gradient-to-br from-white/20 via-cyan-300/10 to-blue-600/20 shadow-[0_0_55px_rgba(34,211,238,0.32)] transition duration-300 group-hover:-translate-y-0.5 group-hover:border-cyan-200/70 group-hover:shadow-[0_0_75px_rgba(34,211,238,0.45)]">
+            <div className="absolute inset-1 rounded-[1.15rem] border border-white/10 bg-black/20" />
+            <span className="relative text-2xl font-black tracking-[-0.08em] text-white">io</span>
+            <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(34,211,238,0.95)]" />
           </div>
           <div>
-            <p className="text-lg font-semibold tracking-tight">ioperio</p>
-            <p className="text-xs text-slate-400">AngebotsPilot</p>
+            <p className="text-2xl font-black tracking-tight md:text-3xl">ioperio</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200/80">AngebotsPilot</p>
           </div>
         </div>
         <nav className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
@@ -98,6 +100,17 @@ export default function Home() {
 
       <section className="relative z-10 mx-auto grid max-w-7xl gap-12 px-6 pb-24 pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:pt-24">
         <div>
+          <div className="mb-8 inline-flex items-center gap-4 rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-3 pr-6 shadow-[0_0_70px_rgba(34,211,238,0.12)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45 hover:bg-white/[0.08] hover:shadow-[0_0_90px_rgba(34,211,238,0.22)]">
+            <div className="relative flex h-20 w-20 items-center justify-center rounded-[1.4rem] border border-cyan-300/45 bg-gradient-to-br from-cyan-200/25 via-white/10 to-blue-700/25 shadow-[0_0_55px_rgba(34,211,238,0.32)]">
+              <div className="absolute inset-1 rounded-[1.1rem] border border-white/10 bg-black/25" />
+              <span className="relative text-3xl font-black tracking-[-0.09em]">io</span>
+              <span className="absolute -right-1 top-3 h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.95)]" />
+            </div>
+            <div>
+              <p className="text-3xl font-black tracking-tight">ioperio</p>
+              <p className="mt-1 text-sm font-semibold uppercase tracking-[0.32em] text-cyan-200/80">AngebotsPilot</p>
+            </div>
+          </div>
           <div className="mb-6 inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100">
             Der einfachste Weg vom Kundenwunsch zum Angebot.
           </div>
