@@ -1,357 +1,164 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-const industries = [
-  "Handwerk",
-  "Handel",
-  "Werkstätten",
-  "Vermietungen",
-  "Servicebetriebe",
-  "Dienstleister",
-];
-
-const painPoints = [
-  {
-    title: "Anfragen bleiben liegen",
-    text: "Kunden melden sich per Telefon, E-Mail oder Formular – aber im Tagesgeschäft geht schnell etwas unter.",
-  },
-  {
-    title: "Angebote kosten zu viel Zeit",
-    text: "Daten sammeln, Preise prüfen, Rückfragen stellen und Angebote vorbereiten passiert oft erst spätabends.",
-  },
-  {
-    title: "Kunden erwarten schnelle Antworten",
-    text: "Wer schneller reagiert, wirkt professioneller und hat eine höhere Chance auf den Auftrag.",
-  },
-];
-
-const systems = [
-  {
-    name: "Anfrage-System",
-    label: "Erfassung",
-    text: "Strukturiert Kundenanfragen automatisch und erkennt wichtige Informationen wie Anliegen, Kontakt, Ort und Dringlichkeit.",
-  },
-  {
-    name: "Angebots-System",
-    label: "Vorbereitung",
-    text: "Bereitet Angebotsentwürfe anhand Ihrer Leistungen, Preise und Regeln vor – damit Sie schneller reagieren können.",
-  },
-  {
-    name: "Telefon-Assistent",
-    label: "Entlastung",
-    text: "Erfasst Telefonanfragen, fragt wichtige Details ab und erstellt klare Rückrufnotizen für Ihr Team.",
-  },
-];
-
-const processSteps = [
-  "Kunde stellt eine Anfrage",
-  "ioperio erkennt die wichtigsten Daten",
-  "Anfrage wird strukturiert und priorisiert",
-  "Rückfrage oder Angebot wird vorbereitet",
-  "Ihr Betrieb prüft und sendet",
-];
+import { useState } from "react";
 
 const packages = [
   {
-    name: "Starter",
-    price: "ab 1.490 €",
-    monthly: "ab 149 € / Monat",
-    text: "Für Betriebe, die Kundenanfragen sauber erfassen und schneller bearbeiten wollen.",
-    features: [
-      "Anfrageformular",
-      "KI-Zusammenfassung",
-      "E-Mail-Benachrichtigung",
-      "Basis-Automatisierung",
-      "1 Monat Betreuung",
+    name: "Basic",
+    label: "E-Mail AngebotsPilot",
+    desc: "Für Betriebe, die Anfragen über E-Mail oder Kontaktformular erhalten.",
+    channels: "E-Mail · Kontaktformular",
+    items: [
+      "Automatische Ersteinschätzung",
+      "Sofortiges unverbindliches Richtangebot an Kunden",
+      "Interne Prüfmail mit Freigabe-Link",
+      "Änderungen per Textfeld oder optional per Sprache",
+      "Finale Angebotsmail über das Firmenpostfach",
     ],
   },
   {
     name: "Pro",
-    price: "ab 2.490 €",
-    monthly: "ab 299 € / Monat",
-    text: "Für Firmen, die Anfragen, E-Mails und Angebotsvorbereitung automatisieren möchten.",
-    features: [
-      "Alles aus Starter",
-      "Angebotsentwürfe",
-      "Kundenqualifizierung",
-      "Individuelle Regeln",
-      "Workflow-Automation",
+    label: "Multi-Channel AngebotsPilot",
+    desc: "Für Betriebe mit zusätzlichen Anfragen über WhatsApp und Social Media.",
+    channels: "E-Mail · WhatsApp · Instagram · Facebook",
+    items: [
+      "Alles aus Basic",
+      "Anfragen aus mehreren Kanälen bündeln",
+      "Richtangebote aus Chat-Nachrichten vorbereiten",
+      "Einheitlicher Freigabeprozess",
+      "Kanalübergreifende Anfrageübersicht",
     ],
-    highlighted: true,
   },
   {
-    name: "Voice",
-    price: "Individuell",
-    monthly: "nach Aufwand",
-    text: "Für Betriebe mit vielen Anrufen, Rückrufen und Terminabstimmungen.",
-    features: [
-      "KI-Telefonassistenz",
-      "Rückrufnotizen",
-      "Dringlichkeitserkennung",
-      "Zusammenfassungen",
-      "Individuelle Einrichtung",
+    name: "Max",
+    label: "Telefonie + AngebotsPilot",
+    desc: "Für Betriebe, die auch Telefonanfragen automatisiert vorqualifizieren wollen.",
+    channels: "E-Mail · WhatsApp · Social Media · Telefon",
+    items: [
+      "Alles aus Pro",
+      "KI-Telefonassistenz / Gesprächserfassung",
+      "Anrufdaten werden zu Angebotsanfragen",
+      "Rückruf- und Terminlogik",
+      "Tagesübersicht und höhere Individualisierung",
     ],
   },
 ];
 
-const stats = [
+const steps = [
+  "Kundenanfrage kommt über bestehende E-Mail oder Kontaktformular rein.",
+  "ioperio erkennt Leistung, Branche, fehlende Infos und Preislogik.",
+  "Der Kunde erhält sofort eine unverbindliche erste Preiseinschätzung.",
+  "Der Betrieb bekommt eine Prüfmail mit Freigabe-Link.",
+  "Änderungen werden geschrieben oder gesprochen.",
+  "ioperio formuliert die finale Angebotsmail und sendet sie über das Firmenpostfach.",
+];
+
+const industries = [
   {
-    value: "24/7",
-    label: "Anfragen erfassen",
+    title: "Fahrzeug & Werkstatt",
+    text: "Bremsen, Service, Pickerl, Reifenwechsel, Klimaservice, Fehlersuche, Ölwechsel und Fahrzeugaufbereitung.",
   },
   {
-    value: "3x",
-    label: "schneller reagieren",
+    title: "Handwerk",
+    text: "Sanitär, Elektro, Maler, Türen/Fenster, Boden, Metallbau und wiederkehrende Angebotsanfragen.",
   },
   {
-    value: "0",
-    label: "verlorene Anfragen",
+    title: "Druck & Werbetechnik",
+    text: "Flyer, Banner, Beschriftungen, Schilder, Folierung, Rollups, Textildruck und B2B-Anfragen.",
   },
 ];
 
 export default function Home() {
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    company: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
-      setScrollProgress(progress);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setStatus("loading");
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Fehler beim Senden");
-      }
-
-      setStatus("success");
-      setFormData({
-        name: "",
-        company: "",
-        email: "",
-        phone: "",
-        message: "",
-      });
-    } catch (error) {
-      console.error(error);
-      setStatus("error");
-    }
-  };
+  const [voiceActive, setVoiceActive] = useState(false);
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#020617] text-white">
-      <div
-        className="fixed left-0 top-0 z-[100] h-1 bg-teal-300 transition-all duration-150"
-        style={{ width: `${scrollProgress}%` }}
-      />
+    <main className="min-h-screen overflow-hidden bg-[#05070c] text-white">
+      <div className="pointer-events-none fixed inset-0 opacity-70">
+        <div className="absolute left-1/2 top-0 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-cyan-500/20 blur-[130px]" />
+        <div className="absolute bottom-20 right-0 h-[420px] w-[420px] rounded-full bg-blue-700/20 blur-[130px]" />
+      </div>
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#020617]/80 backdrop-blur-2xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <a href="#" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-teal-300 text-2xl font-black text-slate-950 shadow-lg shadow-teal-300/20">
-              i
-            </div>
-            <div>
-              <div className="text-2xl font-black tracking-tight">ioperio</div>
-              <div className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
-                AI Automation
-              </div>
-            </div>
-          </a>
-
-          <nav className="hidden items-center gap-8 text-sm font-semibold text-slate-400 md:flex">
-            <a className="transition hover:text-white" href="#problem">
-              Problem
-            </a>
-            <a className="transition hover:text-white" href="#system">
-              System
-            </a>
-            <a className="transition hover:text-white" href="#pakete">
-              Pakete
-            </a>
-            <a className="transition hover:text-white" href="#kontakt">
-              Kontakt
-            </a>
-          </nav>
-
-          <a
-            href="#kontakt"
-            className="hidden rounded-full bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-teal-300 md:inline-flex"
-          >
-            Demo anfragen
-          </a>
+      <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-cyan-300/30 bg-white/10 shadow-[0_0_40px_rgba(34,211,238,0.25)]">
+            <span className="text-lg font-black tracking-tight">io</span>
+          </div>
+          <div>
+            <p className="text-lg font-semibold tracking-tight">ioperio</p>
+            <p className="text-xs text-slate-400">AngebotsPilot</p>
+          </div>
         </div>
+        <nav className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
+          <a href="#ablauf" className="hover:text-white">Ablauf</a>
+          <a href="#pakete" className="hover:text-white">Pakete</a>
+          <a href="#branchen" className="hover:text-white">Branchen</a>
+          <a href="#kontakt" className="rounded-full border border-white/15 px-4 py-2 hover:bg-white/10">Demo anfragen</a>
+        </nav>
       </header>
 
-      <section className="relative px-6 py-20 md:py-28">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:64px_64px]" />
-        <div className="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-teal-300/10 blur-3xl" />
-        <div className="absolute right-[-150px] top-36 h-[500px] w-[500px] rounded-full bg-cyan-500/10 blur-3xl" />
-
-        <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2">
-          <div>
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-slate-300 shadow-2xl">
-              <span className="h-2 w-2 rounded-full bg-teal-300 shadow-lg shadow-teal-300" />
-              Automatisierung für Betriebe mit viel Kundenkontakt
-            </div>
-
-            <h1 className="max-w-4xl text-5xl font-black tracking-tight md:text-7xl">
-              Mehr Anfragen.
-              <span className="block bg-gradient-to-r from-teal-200 to-cyan-400 bg-clip-text text-transparent">
-                Schnellere Angebote.
-              </span>
-              Weniger Büroarbeit.
-            </h1>
-
-            <p className="mt-7 max-w-2xl text-xl leading-9 text-slate-300">
-              ioperio automatisiert Kundenanfragen, E-Mails und
-              Angebotsvorbereitung für Betriebe, die schneller reagieren und
-              professioneller arbeiten wollen.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              {industries.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-slate-300"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <a
-                href="#kontakt"
-                className="rounded-2xl bg-teal-300 px-7 py-4 text-center font-black text-slate-950 shadow-2xl shadow-teal-300/20 transition hover:-translate-y-1 hover:bg-teal-200"
-              >
-                Kostenlose Demo anfragen
-              </a>
-              <a
-                href="#system"
-                className="rounded-2xl border border-white/15 px-7 py-4 text-center font-black text-white transition hover:-translate-y-1 hover:bg-white/10"
-              >
-                System ansehen
-              </a>
-            </div>
-
-            <div className="mt-12 grid max-w-xl grid-cols-3 gap-4">
-              {stats.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl"
-                >
-                  <div className="text-3xl font-black text-teal-300">
-                    {item.value}
-                  </div>
-                  <div className="mt-2 text-sm font-semibold text-slate-400">
-                    {item.label}
-                  </div>
-                </div>
-              ))}
-            </div>
+      <section className="relative z-10 mx-auto grid max-w-7xl gap-12 px-6 pb-24 pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:pt-24">
+        <div>
+          <div className="mb-6 inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100">
+            Keine neue Website. Kein neues CRM. ioperio hängt sich an bestehende Systeme.
           </div>
+          <h1 className="max-w-4xl text-5xl font-black leading-[0.95] tracking-tight md:text-7xl">
+            Aus Kundenanfragen werden automatisch Richtangebote.
+          </h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
+            ioperio verarbeitet bestehende E-Mails und Kontaktformular-Anfragen, erstellt sofort eine erste Preiseinschätzung und gibt dem Betrieb einen Freigabe-Link für die finale Angebotsmail.
+          </p>
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+            <a href="#kontakt" className="rounded-full bg-white px-7 py-4 text-center font-semibold text-slate-950 shadow-[0_0_50px_rgba(255,255,255,0.20)] transition hover:scale-[1.02]">
+              Basic Demo starten
+            </a>
+            <a href="#ablauf" className="rounded-full border border-white/15 px-7 py-4 text-center font-semibold text-white transition hover:bg-white/10">
+              Ablauf ansehen
+            </a>
+          </div>
+          <p className="mt-6 text-sm text-slate-500">
+            Ideal für Werkstätten, Handwerk, Händler, Aufbereiter, Druckereien und Werbetechnik.
+          </p>
+        </div>
 
-          <div className="relative">
-            <div className="absolute -inset-6 rounded-[2.5rem] bg-teal-300/10 blur-2xl" />
-            <div className="relative rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-2xl">
-              <div className="rounded-[1.5rem] border border-white/10 bg-[#07111f] p-6">
-                <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-5">
-                  <div>
-                    <div className="text-xs font-black uppercase tracking-[0.3em] text-teal-300">
-                      ioperio system
-                    </div>
-                    <div className="mt-2 text-2xl font-black">
-                      Anfrage erkannt
-                    </div>
-                  </div>
-                  <span className="rounded-full bg-red-500/15 px-3 py-1 text-xs font-black text-red-300">
-                    hoch
-                  </span>
+        <div className="relative">
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-xl">
+            <div className="rounded-[1.5rem] border border-white/10 bg-[#080b12] p-5">
+              <div className="mb-5 flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                  <p className="text-sm text-slate-400">Neue Anfrage erkannt</p>
+                  <p className="font-semibold">Bremsen vorne · BMW 320d</p>
+                </div>
+                <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Richtangebot erstellt</span>
+              </div>
+
+              <div className="space-y-4">
+                <div className="rounded-2xl bg-white/[0.04] p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Sofort an Kunden</p>
+                  <p className="mt-2 text-2xl font-bold">ca. 280–520 €</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">Unverbindliche Ersteinschätzung, abhängig von Fahrzeugdaten, Teilequalität und tatsächlichem Aufwand.</p>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="rounded-3xl bg-white p-5 text-slate-950">
-                    <p className="text-xs font-black uppercase text-slate-400">
-                      Neue Kundenanfrage
-                    </p>
-                    <h2 className="mt-2 text-2xl font-black">
-                      Serviceanfrage mit Angebotswunsch
-                    </h2>
-                    <p className="mt-3 leading-7 text-slate-600">
-                      Kunde benötigt kurzfristige Rückmeldung, Preisrahmen und
-                      Terminmöglichkeit.
-                    </p>
+                <div className="rounded-2xl border border-cyan-300/20 bg-cyan-300/[0.06] p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Freigabe-Link</p>
+                  <p className="mt-2 font-semibold">Änderungen an ioperio</p>
+                  <textarea
+                    className="mt-3 min-h-[94px] w-full resize-none rounded-xl border border-white/10 bg-black/30 p-3 text-sm outline-none placeholder:text-slate-600"
+                    placeholder="Preis auf 390–490 ändern, Markenqualität erwähnen, Termin nächste Woche anbieten."
+                  />
+                  <div className="mt-3 flex gap-3">
+                    <button className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-950">Neue Vorschau</button>
+                    <button
+                      onClick={() => setVoiceActive(!voiceActive)}
+                      className="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+                    >
+                      {voiceActive ? "Aufnahme läuft..." : "Änderung sprechen"}
+                    </button>
                   </div>
+                </div>
 
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    {[
-                      ["Kontakt", "erfasst"],
-                      ["Anliegen", "erkannt"],
-                      ["Priorität", "hoch"],
-                      ["Nächster Schritt", "Angebot"],
-                    ].map(([label, value]) => (
-                      <div
-                        key={label}
-                        className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"
-                      >
-                        <p className="text-xs font-bold uppercase text-slate-500">
-                          {label}
-                        </p>
-                        <p className="mt-1 font-black text-white">{value}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="rounded-3xl border border-teal-300/30 bg-teal-300 p-5 text-slate-950">
-                    <p className="text-xs font-black uppercase opacity-70">
-                      Empfehlung
-                    </p>
-                    <p className="mt-2 font-black leading-7">
-                      Rückruf vorbereiten, Anfrage priorisieren und
-                      Angebotsentwurf erstellen.
-                    </p>
-                  </div>
+                <div className="rounded-2xl bg-white/[0.04] p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Finale Mail</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">ioperio formuliert die Angebotsmail neu und sendet sie nach Freigabe über das Firmenpostfach. Die Mail erscheint in Outlook/Gmail unter „Gesendet“.</p>
                 </div>
               </div>
             </div>
@@ -359,151 +166,67 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="problem" className="relative border-y border-white/10 bg-white/[0.03] px-6 py-24">
+      <section id="ablauf" className="relative z-10 border-y border-white/10 bg-white/[0.03] px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
-            <p className="text-sm font-black uppercase tracking-[0.3em] text-teal-300">
-              Das Problem
-            </p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
-              Gute Betriebe verlieren keine Kunden wegen schlechter Arbeit.
-              Sondern wegen zu langsamer Reaktion.
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-slate-300">
-              Wenn Anfragen nicht sauber erfasst, priorisiert und bearbeitet
-              werden, bleibt Umsatz liegen.
-            </p>
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">Der Basic Ablauf</p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">E-Mail rein. Richtangebot raus. Freigabe mit einem Klick.</h2>
           </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {painPoints.map((item) => (
-              <div
-                key={item.title}
-                className="group rounded-[2rem] border border-white/10 bg-[#07111f] p-8 shadow-xl transition duration-300 hover:-translate-y-2 hover:border-teal-300/40"
-              >
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-2xl font-black text-teal-300 transition group-hover:bg-teal-300 group-hover:text-slate-950">
-                  !
-                </div>
-                <h3 className="text-2xl font-black">{item.title}</h3>
-                <p className="mt-4 leading-7 text-slate-400">{item.text}</p>
+          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {steps.map((step, index) => (
+              <div key={step} className="rounded-3xl border border-white/10 bg-[#080b12]/80 p-6">
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-lg font-black text-slate-950">{index + 1}</div>
+                <p className="text-lg font-semibold leading-7">{step}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="system" className="px-6 py-24">
-        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="lg:sticky lg:top-28 lg:h-fit">
-            <p className="text-sm font-black uppercase tracking-[0.3em] text-teal-300">
-              Das System
-            </p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
-              Von der Anfrage bis zum vorbereiteten Angebot.
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-slate-300">
-              ioperio verbindet Anfrageerfassung, KI-Auswertung und
-              Angebotsvorbereitung in einem klaren Ablauf.
-            </p>
-
-            <div className="mt-8 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5">
-              <div className="mb-4 flex items-center justify-between">
-                <span className="text-sm font-black text-slate-400">
-                  Automation Flow
-                </span>
-                <span className="rounded-full bg-teal-300 px-3 py-1 text-xs font-black text-slate-950">
-                  aktiv
-                </span>
-              </div>
-
-              <div className="space-y-3">
-                {processSteps.map((step, index) => (
-                  <div key={step} className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-300 text-sm font-black text-slate-950">
-                      {index + 1}
-                    </div>
-                    <div className="rounded-2xl border border-white/10 bg-[#07111f] px-4 py-3 text-sm font-bold text-slate-300">
-                      {step}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <section className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div className="lg:sticky lg:top-12">
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">Freigabe statt Chaos</p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">Der Betrieb behält Kontrolle.</h2>
+            <p className="mt-5 text-lg leading-8 text-slate-300">ioperio sendet eine erste unverbindliche Einschätzung sofort. Die finale Angebotsmail wird über einen Freigabe-Link geprüft, geändert und versendet.</p>
           </div>
-
-          <div className="grid gap-6">
-            {systems.map((item) => (
-              <div
-                key={item.name}
-                className="group rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 transition duration-300 hover:-translate-y-2 hover:border-teal-300/40 hover:bg-white/[0.06]"
-              >
-                <div className="mb-6 inline-flex rounded-full border border-teal-300/30 bg-teal-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-teal-300">
-                  {item.label}
-                </div>
-                <h3 className="text-3xl font-black">
-                  ioperio {item.name}
-                </h3>
-                <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-                  {item.text}
-                </p>
+          <div className="space-y-4">
+            {[
+              ["Textfeld", "Der Betrieb schreibt kurze Änderungswünsche. ioperio formuliert daraus eine professionelle Kundenmail."],
+              ["Spracheingabe", "Am Handy Änderung einsprechen, Vorschau prüfen und final senden. Perfekt für Chefs unterwegs."],
+              ["Firmenpostfach", "Versand über Outlook oder Gmail des Betriebs. Die Mail liegt nachvollziehbar unter Gesendete Elemente."],
+              ["Sicherheitslogik", "Richtpreise bleiben unverbindlich. Heikle Fälle wie Reklamationen, Garantie oder unklare Schäden gehen nur intern zur Prüfung."],
+            ].map(([title, text]) => (
+              <div key={title} className="rounded-3xl border border-white/10 bg-white/[0.05] p-6">
+                <h3 className="text-2xl font-bold">{title}</h3>
+                <p className="mt-3 leading-7 text-slate-300">{text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="pakete" className="border-y border-white/10 bg-white/[0.03] px-6 py-24">
+      <section id="pakete" className="relative z-10 border-y border-white/10 bg-white/[0.03] px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
-            <p className="text-sm font-black uppercase tracking-[0.3em] text-teal-300">
-              Pakete
-            </p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
-              Starten Sie klein. Automatisieren Sie Schritt für Schritt.
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-slate-300">
-              Jedes System wird an Betrieb, Leistungen, Preise und interne
-              Abläufe angepasst.
-            </p>
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">Pakete</p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">Basic, Pro und Max.</h2>
+            <p className="mt-5 text-lg leading-8 text-slate-300">Die Pakete unterscheiden sich nach Eingangskanälen und Automatisierungsgrad. Der Kern bleibt immer gleich: Anfrage zu Richtangebot.</p>
           </div>
 
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {packages.map((item) => (
-              <div
-                key={item.name}
-                className={`relative rounded-[2rem] border p-8 shadow-2xl transition duration-300 hover:-translate-y-2 ${
-                  item.highlighted
-                    ? "border-teal-300 bg-teal-300 text-slate-950 shadow-teal-300/20"
-                    : "border-white/10 bg-[#07111f] text-white"
-                }`}
-              >
-                {item.highlighted && (
-                  <div className="mb-5 inline-flex rounded-full bg-slate-950 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-teal-300">
-                    Beliebt
-                  </div>
-                )}
-
-                <h3 className="text-3xl font-black">{item.name}</h3>
-                <p className="mt-4 leading-7 opacity-80">{item.text}</p>
-
-                <div className="mt-8">
-                  <div className="text-4xl font-black">{item.price}</div>
-                  <div className="mt-2 font-bold opacity-70">{item.monthly}</div>
-                </div>
-
-                <ul className="mt-8 space-y-3">
-                  {item.features.map((feature) => (
-                    <li key={feature} className="flex gap-3 font-semibold">
-                      <span
-                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-sm font-black ${
-                          item.highlighted
-                            ? "bg-slate-950 text-teal-300"
-                            : "bg-teal-300 text-slate-950"
-                        }`}
-                      >
-                        ✓
-                      </span>
-                      {feature}
+            {packages.map((pack) => (
+              <div key={pack.name} className="rounded-[2rem] border border-white/10 bg-[#080b12] p-7 shadow-2xl">
+                <p className="text-sm text-cyan-300">ioperio</p>
+                <h3 className="mt-1 text-4xl font-black">{pack.name}</h3>
+                <p className="mt-2 font-semibold text-slate-200">{pack.label}</p>
+                <p className="mt-4 leading-7 text-slate-400">{pack.desc}</p>
+                <div className="mt-6 rounded-2xl bg-white/[0.05] p-4 text-sm text-slate-300">{pack.channels}</div>
+                <ul className="mt-6 space-y-3">
+                  {pack.items.map((item) => (
+                    <li key={item} className="flex gap-3 text-sm leading-6 text-slate-300">
+                      <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -513,131 +236,50 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="kontakt" className="px-6 py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 rounded-[2.5rem] border border-white/10 bg-white/[0.04] p-8 shadow-2xl md:grid-cols-2 md:p-12">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.3em] text-teal-300">
-              Kontakt
-            </p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
-              Lassen Sie uns Ihren Anfrageprozess automatisieren.
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-slate-300">
-              In einer kostenlosen Demo zeigen wir, wie ioperio zu Ihrem Betrieb
-              passen kann – mit echten Abläufen statt Theorie.
-            </p>
-
-            <div className="mt-8 space-y-4">
-              {[
-                "Kostenlose Ersteinschätzung",
-                "Konkreter Ablauf für Ihren Betrieb",
-                "Keine Verpflichtung",
-              ].map((item) => (
-                <div key={item} className="flex items-center gap-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-teal-300 text-sm font-black text-slate-950">
-                    ✓
-                  </span>
-                  <span className="font-bold text-slate-300">{item}</span>
-                </div>
-              ))}
+      <section id="branchen" className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">Branchenlogik</p>
+          <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">Preislogik je Betrieb, Vorlage je Branche.</h2>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {industries.map((industry) => (
+            <div key={industry.title} className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-7">
+              <h3 className="text-2xl font-bold">{industry.title}</h3>
+              <p className="mt-4 leading-7 text-slate-300">{industry.text}</p>
             </div>
-          </div>
-
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-4 rounded-[2rem] bg-white p-6 text-slate-950 shadow-2xl"
-          >
-            <input
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 p-4 outline-none transition focus:border-teal-400"
-              placeholder="Name"
-              required
-            />
-
-            <input
-              name="company"
-              value={formData.company}
-              onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 p-4 outline-none transition focus:border-teal-400"
-              placeholder="Firma"
-            />
-
-            <input
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 p-4 outline-none transition focus:border-teal-400"
-              placeholder="E-Mail"
-              required
-            />
-
-            <input
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full rounded-xl border border-slate-200 p-4 outline-none transition focus:border-teal-400"
-              placeholder="Telefon"
-            />
-
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              className="h-28 w-full rounded-xl border border-slate-200 p-4 outline-none transition focus:border-teal-400"
-              placeholder="Wobei dürfen wir helfen?"
-            />
-
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="w-full rounded-xl bg-slate-950 px-6 py-4 font-black text-white transition hover:bg-slate-800 disabled:opacity-60"
-            >
-              {status === "loading" ? "Wird gesendet..." : "Demo anfragen"}
-            </button>
-
-            {status === "success" && (
-              <p className="rounded-xl bg-teal-50 p-4 text-sm font-bold text-teal-800">
-                Danke! Ihre Anfrage wurde erfolgreich gesendet.
-              </p>
-            )}
-
-            {status === "error" && (
-              <p className="rounded-xl bg-red-50 p-4 text-sm font-bold text-red-700">
-                Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben
-                Sie direkt an office@ioperio.at.
-              </p>
-            )}
-          </form>
+          ))}
         </div>
       </section>
 
-      <footer className="border-t border-white/10 px-6 py-8">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 text-sm text-slate-500 md:flex-row">
-          <div>
-            <strong className="text-white">
-              <span className="text-teal-300">i</span>operio
-            </strong>{" "}
-            – Mehr Anfragen. Schnellere Angebote. Weniger Büroarbeit.
-          </div>
-          <div className="flex flex-wrap gap-6">
-            <a className="transition hover:text-white" href="#">
-              Impressum
-            </a>
-            <a className="transition hover:text-white" href="#">
-              Datenschutz
-            </a>
-            <a
-              className="transition hover:text-white"
-              href="mailto:office@ioperio.at"
-            >
-              office@ioperio.at
+      <section id="kontakt" className="relative z-10 px-6 pb-24">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-cyan-300/20 bg-cyan-300/[0.07] p-8 md:p-12">
+          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-200">Demo</p>
+              <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">Start mit ioperio Basic für Werkstatt/Fahrzeugbetrieb.</h2>
+              <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">Wir testen mit Leistungen wie Bremsen vorne, Service, Pickerl, Reifenwechsel, Klimaservice, Fehlersuche und Ölwechsel.</p>
+            </div>
+            <a href="mailto:kontakt@ioperio.at?subject=ioperio%20Basic%20Demo" className="rounded-full bg-white px-8 py-4 text-center font-bold text-slate-950 shadow-[0_0_50px_rgba(255,255,255,0.18)]">
+              kontakt@ioperio.at
             </a>
           </div>
         </div>
+      </section>
+
+      <footer className="relative z-10 border-t border-white/10 px-6 py-10 text-sm text-slate-500">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} ioperio. Automatische Richtangebote aus Kundenanfragen.</p>
+          <div className="flex gap-5">
+            <a href="#" className="hover:text-white">Impressum</a>
+            <a href="#" className="hover:text-white">Datenschutz</a>
+          </div>
+        </div>
       </footer>
+
+      <div className="fixed bottom-5 right-5 z-20 hidden rounded-3xl border border-white/10 bg-[#080b12]/95 p-4 shadow-2xl backdrop-blur md:block">
+        <p className="text-sm font-semibold">ioperio Demo</p>
+        <p className="mt-1 max-w-[240px] text-xs leading-5 text-slate-400">Anfrage rein, Richtangebot raus, Freigabe per Text oder Sprache.</p>
+      </div>
     </main>
   );
 }
