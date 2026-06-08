@@ -121,7 +121,7 @@ export default function Home() {
         </div>
 
         <div className="relative">
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-xl">
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45 hover:bg-white/[0.08] hover:shadow-[0_0_70px_rgba(34,211,238,0.18)]">
             <div className="rounded-[1.5rem] border border-white/10 bg-[#080b12] p-5">
               <div className="mb-5 flex items-center justify-between border-b border-white/10 pb-4">
                 <div>
@@ -132,13 +132,13 @@ export default function Home() {
               </div>
 
               <div className="space-y-4">
-                <div className="rounded-2xl bg-white/[0.04] p-4">
+                <div className="rounded-2xl bg-white/[0.04] p-4 transition duration-300 hover:-translate-y-0.5 hover:border hover:border-cyan-300/35 hover:bg-white/[0.08] hover:shadow-[0_0_35px_rgba(34,211,238,0.14)]">
                   <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Sofort an Kunden</p>
                   <p className="mt-2 text-2xl font-bold">ca. 280–520 €</p>
                   <p className="mt-2 text-sm leading-6 text-slate-400">Unverbindliche Ersteinschätzung, abhängig von Fahrzeugdaten, Teilequalität und tatsächlichem Aufwand.</p>
                 </div>
 
-                <div className="rounded-2xl border border-cyan-300/20 bg-cyan-300/[0.06] p-4">
+                <div className="rounded-2xl border border-cyan-300/20 bg-cyan-300/[0.06] p-4 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/55 hover:bg-cyan-300/[0.10] hover:shadow-[0_0_40px_rgba(34,211,238,0.20)]">
                   <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Freigabe-Link</p>
                   <p className="mt-2 font-semibold">Änderungen an ioperio</p>
                   <textarea
@@ -156,7 +156,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl bg-white/[0.04] p-4">
+                <div className="rounded-2xl bg-white/[0.04] p-4 transition duration-300 hover:-translate-y-0.5 hover:border hover:border-cyan-300/35 hover:bg-white/[0.08] hover:shadow-[0_0_35px_rgba(34,211,238,0.14)]">
                   <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Finale Mail</p>
                   <p className="mt-2 text-sm leading-6 text-slate-300">ioperio formuliert die Angebotsmail neu und sendet sie nach Freigabe über das Firmenpostfach. Die Mail erscheint in Outlook/Gmail unter „Gesendet“.</p>
                 </div>
@@ -174,7 +174,7 @@ export default function Home() {
           </div>
           <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {steps.map((step, index) => (
-              <div key={step} className="rounded-3xl border border-white/10 bg-[#080b12]/80 p-6">
+              <div key={step} className="rounded-3xl border border-white/10 bg-[#080b12]/80 p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45 hover:bg-white/[0.07] hover:shadow-[0_0_45px_rgba(34,211,238,0.16)]">
                 <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-lg font-black text-slate-950">{index + 1}</div>
                 <p className="text-lg font-semibold leading-7">{step}</p>
               </div>
@@ -197,7 +197,7 @@ export default function Home() {
               ["Firmenpostfach", "Versand über Outlook oder Gmail des Betriebs. Die Mail liegt nachvollziehbar unter Gesendete Elemente."],
               ["Sicherheitslogik", "Richtpreise bleiben unverbindlich. Heikle Fälle wie Reklamationen, Garantie oder unklare Schäden gehen nur intern zur Prüfung."],
             ].map(([title, text]) => (
-              <div key={title} className="rounded-3xl border border-white/10 bg-white/[0.05] p-6">
+              <div key={title} className="rounded-3xl border border-white/10 bg-white/[0.05] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45 hover:bg-white/[0.08] hover:shadow-[0_0_45px_rgba(34,211,238,0.16)]">
                 <h3 className="text-2xl font-bold">{title}</h3>
                 <p className="mt-3 leading-7 text-slate-300">{text}</p>
               </div>
@@ -216,7 +216,7 @@ export default function Home() {
 
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {packages.map((pack) => (
-              <div key={pack.name} className="rounded-[2rem] border border-white/10 bg-[#080b12] p-7 shadow-2xl">
+              <div key={pack.name} className="rounded-[2rem] border border-white/10 bg-[#080b12] p-7 shadow-2xl transition duration-300 hover:-translate-y-2 hover:border-cyan-300/50 hover:bg-white/[0.06] hover:shadow-[0_0_65px_rgba(34,211,238,0.20)]">
                 <p className="text-sm text-cyan-300">ioperio</p>
                 <h3 className="mt-1 text-4xl font-black">{pack.name}</h3>
                 <p className="mt-2 font-semibold text-slate-200">{pack.label}</p>
@@ -243,7 +243,7 @@ export default function Home() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {industries.map((industry) => (
-            <div key={industry.title} className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-7">
+            <div key={industry.title} className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-7 transition duration-300 hover:-translate-y-2 hover:border-cyan-300/50 hover:bg-white/[0.08] hover:shadow-[0_0_55px_rgba(34,211,238,0.18)]">
               <h3 className="text-2xl font-bold">{industry.title}</h3>
               <p className="mt-4 leading-7 text-slate-300">{industry.text}</p>
             </div>
@@ -252,7 +252,7 @@ export default function Home() {
       </section>
 
       <section id="kontakt" className="relative z-10 px-6 pb-24">
-        <div className="mx-auto max-w-7xl rounded-[2rem] border border-cyan-300/20 bg-cyan-300/[0.07] p-8 md:p-12">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-cyan-300/20 bg-cyan-300/[0.07] p-8 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/55 hover:bg-cyan-300/[0.10] hover:shadow-[0_0_65px_rgba(34,211,238,0.18)] md:p-12">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-200">Demo</p>
@@ -276,7 +276,7 @@ export default function Home() {
         </div>
       </footer>
 
-      <div className="fixed bottom-5 right-5 z-20 hidden rounded-3xl border border-white/10 bg-[#080b12]/95 p-4 shadow-2xl backdrop-blur md:block">
+      <div className="fixed bottom-5 right-5 z-20 hidden rounded-3xl border border-white/10 bg-[#080b12]/95 p-4 shadow-2xl backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-cyan-300/50 hover:bg-white/[0.08] hover:shadow-[0_0_45px_rgba(34,211,238,0.20)] md:block">
         <p className="text-sm font-semibold">ioperio Demo</p>
         <p className="mt-1 max-w-[240px] text-xs leading-5 text-slate-400">Vom Kundenwunsch zum Angebot – per Freigabe-Link.</p>
       </div>
