@@ -57,14 +57,23 @@ const industries = [
   {
     title: "Fahrzeug & Werkstatt",
     text: "Bremsen, Service, Pickerl, Reifenwechsel, Klimaservice, Fehlersuche, Ölwechsel und Fahrzeugaufbereitung.",
+    adTitle: "Demo-Anzeige Werkstatt",
+    adText: "Bremsen vorne? ioperio erkennt Fahrzeugdaten, erstellt ein Richtangebot und fordert fehlende Infos automatisch an.",
+    example: "ca. 280–520 €",
   },
   {
     title: "Handwerk",
     text: "Sanitär, Elektro, Maler, Türen/Fenster, Boden, Metallbau und wiederkehrende Angebotsanfragen.",
+    adTitle: "Demo-Anzeige Handwerk",
+    adText: "Kundenwunsch rein, Richtpreis raus: ioperio fragt Fotos, Maße und Adresse sauber nach.",
+    example: "Rückfrage + Richtpreis",
   },
   {
     title: "Druck & Werbetechnik",
     text: "Flyer, Banner, Beschriftungen, Schilder, Folierung, Rollups, Textildruck und B2B-Anfragen.",
+    adTitle: "Demo-Anzeige Print",
+    adText: "Aus Menge, Format, Material und Liefertermin wird automatisch ein Angebotsentwurf vorbereitet.",
+    example: "Format · Menge · Preis",
   },
 ];
 
@@ -256,9 +265,21 @@ export default function Home() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {industries.map((industry) => (
-            <div key={industry.title} className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-7 transition duration-300 hover:-translate-y-2 hover:border-cyan-300/50 hover:bg-white/[0.08] hover:shadow-[0_0_55px_rgba(34,211,238,0.18)]">
+            <div key={industry.title} className="group overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.05] p-7 transition duration-300 hover:-translate-y-2 hover:border-cyan-300/50 hover:bg-white/[0.08] hover:shadow-[0_0_55px_rgba(34,211,238,0.18)]">
               <h3 className="text-2xl font-bold">{industry.title}</h3>
               <p className="mt-4 leading-7 text-slate-300">{industry.text}</p>
+
+              <div className="mt-7 rounded-3xl border border-cyan-300/20 bg-black/30 p-5 transition duration-300 group-hover:border-cyan-300/55 group-hover:bg-cyan-300/[0.08] group-hover:shadow-[0_0_40px_rgba(34,211,238,0.18)]">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <span className="rounded-full bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200">{industry.adTitle}</span>
+                  <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300">Live-Beispiel</span>
+                </div>
+                <p className="text-sm leading-6 text-slate-300">{industry.adText}</p>
+                <div className="mt-4 rounded-2xl bg-white/[0.06] p-4">
+                  <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Richtangebot</p>
+                  <p className="mt-2 text-xl font-black text-white">{industry.example}</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
